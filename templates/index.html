@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Coin Flip</title>
+
+<style>
+body{
+    text-align:center;
+    font-family:Arial;
+    margin:0;
+    padding:0;
+
+    /* background image */
+    background-image: url("/static/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    height:100vh;
+}
+
+h1{
+    padding-top:40px;
+    font-size:48px;
+    color:#222;
+}
+
+.coin{
+    margin:40px auto;
+    border-radius:50%;
+    height:140px;
+    width:140px;
+    box-shadow:2px 10px 15px rgba(0,0,0,0.3);
+}
+
+img{
+    height:inherit;
+    width:inherit;
+    border-radius:50%;
+}
+
+/* animation */
+.flip{
+    animation: flip 3s ease-in-out;
+}
+
+@keyframes flip{
+    0%{ transform:rotateX(0deg); }
+    50%{ transform:rotateX(900deg); }
+    100%{ transform:rotateX(1800deg); }
+}
+
+#result{
+    font-size:36px;
+    color:#222;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 30px;
+    font-size:24px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:linear-gradient(to bottom,#ffcc66,#f4a742);
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Coin Flip 🪙</h1>
+
+<div class="coin" id="coin">
+    <img id="coinImg"
+    src="{{ url_for('static', filename='blank_coin.png') }}"
+    alt="coin">
+</div>
+
+<h2 id="result">Click the button</h2>
+
+<button onclick="flipCoin()">Flip Coin</button>
+
+<script>
+function flipCoin(){
+
+    const coin = document.getElementById("coin");
+    const result = document.getElementById("result");
+    const img = document.getElementById("coinImg");
+
+    coin.classList.add("flip");
+
+    let isHeads = Math.random() < 0.5;
+
+    setTimeout(() => {
+
+        if(isHeads){
+            img.src = "/static/heads.png";
+            result.innerText = "Heads";
+        }else{
+            img.src = "/static/tails.png";
+            result.innerText = "Tails";
+        }
+
+        coin.classList.remove("flip");
+
+    },3000);
+}
+</script>
+
+</body>
+</html>
